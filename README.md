@@ -1,0 +1,2 @@
+# tugaslatika
+Kelompok Faras SMANESA
