@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Catat tugas sekolah dan lihat tugas yang perlu dikerjakan lebih dahulu.">
+    <meta name="theme-color" content="#f5f7f1">
+    <title>Deadline Radar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="wrap topbar-inner">
+            <div class="brand">
+                <span class="brand-icon" aria-hidden="true"><span></span></span>
+                <span>Deadline Radar</span>
+            </div>
+            <time id="tanggal-hari-ini" class="today"></time>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="page-title">
+            <h1>Tugas sekolah</h1>
+        </div>
+
+        <noscript><p class="notice">Aktifkan JavaScript untuk memakai Deadline Radar.</p></noscript>
+        <p id="info-penyimpanan" class="notice" role="status" hidden>Browser ini hanya bisa menyimpan tugas selama halaman terbuka.</p>
+
+        <dl class="stats" aria-label="Ringkasan tugas">
+            <div class="stat">
+                <dt><span class="stat-dot dot-active" aria-hidden="true"></span>Tugas aktif</dt>
+                <dd id="jumlah-aktif">0</dd>
+            </div>
+            <div class="stat">
+                <dt><span class="stat-dot dot-soon" aria-hidden="true"></span>Tenggat dekat</dt>
+                <dd id="jumlah-dekat">0</dd>
+            </div>
+            <div class="stat">
+                <dt><span class="stat-dot dot-late" aria-hidden="true"></span>Lewat tenggat</dt>
+                <dd id="jumlah-lewat">0</dd>
+            </div>
+        </dl>
+
+        <div class="workspace">
+            <section class="panel form-panel" aria-labelledby="judul-form">
+                <h2 id="judul-form">Tambah tugas</h2>
+                <form id="form-tugas">
+                    <div class="field">
+                        <label for="nama-tugas">Nama tugas</label>
+                        <input id="nama-tugas" name="nama" type="text" maxlength="100" placeholder="Misalnya PR matematika" required>
+                    </div>
+                    <div class="field">
+                        <label for="tanggal-tenggat">Tanggal tenggat</label>
+                        <input id="tanggal-tenggat" name="tenggat" type="date" required>
+                    </div>
+                    <div class="field">
+                        <label for="kesulitan">Tingkat kesulitan</label>
+                        <select id="kesulitan" name="kesulitan">
+                            <option value="mudah">Mudah</option>
+                            <option value="sedang" selected>Sedang</option>
+                            <option value="sulit">Sulit</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button id="simpan-tugas" class="button-primary" type="submit">Tambah tugas</button>
+                        <button id="batal-ubah" class="button-secondary" type="button" hidden>Batal</button>
+                    </div>
+                </form>
+                <p id="pesan-form" class="form-message" role="status"></p>
+            </section>
+
+            <div class="task-area">
+                <section class="recommendation" aria-labelledby="judul-rekomendasi">
+                    <div class="radar-art" aria-hidden="true"><span></span><span></span></div>
+                    <div class="recommendation-content" aria-live="polite">
+                        <h2 id="judul-rekomendasi">Kerjakan dulu</h2>
+                        <p id="nama-rekomendasi" class="recommendation-name">Belum ada tugas</p>
+                        <p id="info-rekomendasi" class="recommendation-detail">Tambahkan tugas untuk melihat urutannya.</p>
+                    </div>
+                </section>
+
+                <section class="panel tasks-panel" aria-labelledby="judul-daftar">
+                    <div class="task-heading">
+                        <h2 id="judul-daftar">Daftar tugas</h2>
+                        <div class="filters" role="group" aria-label="Tampilan tugas">
+                            <button id="lihat-aktif" type="button" aria-pressed="true">Aktif</button>
+                            <button id="lihat-selesai" type="button" aria-pressed="false">Selesai <span id="jumlah-selesai">0</span></button>
+                        </div>
+                    </div>
+                    <div id="daftar-tugas"></div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <template id="baris-tugas">
+        <li class="task-row">
+            <div class="task-info">
+                <p class="task-name"></p>
+                <div class="task-meta">
+                    <time class="task-date"></time>
+                    <span class="task-difficulty"></span>
+                    <span class="task-status"></span>
+                </div>
+            </div>
+            <div class="task-actions">
+                <button type="button" data-aksi="ubah">Ubah</button>
+                <button type="button" data-aksi="hapus" class="button-delete">Hapus</button>
+                <button type="button" data-aksi="selesai" class="button-done">Selesai</button>
+            </div>
+        </li>
+    </template>
+</body>
+</html>
